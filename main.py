@@ -90,4 +90,4 @@ os.chdir('..')
 shutil.rmtree('C:\\Users\\jan99375\\Documents\\PythonProjects\\ImageAltering\\tempdir')
 
 #Save the file
-concatenated.save("test1.jpg")
+concatenated.save("render - work .jpg")
