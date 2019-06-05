@@ -26,14 +26,16 @@ def splitArr(a, n):
 
 def processSplit(filenameArr, resizeFactor, numofsplits=4):
     arrofSlivers = splitArr(filenameArr, numofsplits)
+    sliverDict = {}
     que = Queue()
     threads = []
     for i in range(numofsplits):
-        threads.append(threading.Thread(target = lambda q, arg1, arg2: q.put(concatArrSliver(arg1, arg2)), args=(que, arrofSlivers[i], resizeFactor)))
+        #threads.append(threading.Thread(target = lambda q, arg1, arg2: q.put(concatArrSliver(arg1, arg2)), args=(que, arrofSlivers[i], resizeFactor))) 
+        threads.append(threading.Thread(target = lambda m, arg1, arg2: m.update({i : concatArrSliver(arg1, arg2)}), args=(sliverDict, arrofSlivers[i], resizeFactor)))
         threads[-1].start()
     for t in threads:
         t.join()
-    return que
+    return sliverDict
 
 def getResizeFactor(frameCount):
         if (frameCount < 1920):
@@ -64,6 +66,8 @@ count = 0
 filenameArr = []
 success, image  = vid.read()
 
+#Test - try setting a frame to specific index in video
+#vid.set(cv2.CAP_PROP_POS_FRAMES, 4000)
 
 #Iterate through each frame, crop and save 
 loopTimeStart = time.time()
@@ -80,14 +84,14 @@ loopTimeStop = time.time()
 os.chdir('tempdir')
 
 #Combine arrays
-sliverQueue = processSplit(filenameArr, resizeFactor)
-concatenated = Image.fromarray(np.concatenate([x for x in list(sliverQueue.queue)], axis=1))
+sliverDict = processSplit(filenameArr, resizeFactor)
+concatenated = Image.fromarray(np.concatenate([sliverDict[key] for key in sorted(sliverDict.keys())], axis=1))
 
 #Change back to save file 
 os.chdir('..')
 
 #Remove the tempdir that contains the files 
-shutil.rmtree('C:\\Users\\jan99375\\Documents\\PythonProjects\\ImageAltering\\tempdir')
+shutil.rmtree('C:\\Users\\jan99375\\Documents\\PythonProjects\\ImageAlterting\\tempdir')
 
 #Save the file
-concatenated.save("render - work .jpg")
+concatenated.save("render - work.jpg")
