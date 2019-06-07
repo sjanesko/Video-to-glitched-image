@@ -62,6 +62,9 @@ def createFrames(videoName, numofsplits=2):
         vidList[x] = cv2.VideoCapture('./videos/%s' % videoName)
 
     frameCount = int(vidList[0].get(cv2.CAP_PROP_FRAME_COUNT))
+    if frameCount > 65500:
+        frameCount = 65500
+
     print(frameCount)
 
     # Keep track of where each thread should read
@@ -153,7 +156,7 @@ while success:
 stopTimeOld = time.time()
 '''
 
-file = 'botw1'
+file = 'botw2'
 filename = file + '.mp4'
 
 startTimeNew = time.time()
