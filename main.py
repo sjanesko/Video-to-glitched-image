@@ -125,43 +125,8 @@ def frameCreator(vid, start, end):
 if os.path.exists('tempdir') == False:
     os.mkdir('tempdir')
 
-<<<<<<< HEAD
 #Open video file
 file = 'waterrelax'
-=======
-# Open video file
-'''
-vid = cv2.VideoCapture('./videos/shore.mp4')
-
-#Get video properties
-frameCount = int(vid.get(cv2.CAP_PROP_FRAME_COUNT))
-width  = int(vid.get(cv2.CAP_PROP_FRAME_WIDTH))
-height = int(vid.get(cv2.CAP_PROP_FRAME_HEIGHT))
-
-print(frameCount, width,  height)
-
-#Determine how much to stretch image
-#resizeFactor = getResizeFactor(frameCount)
-resizeFactor = 2
-
-#Create variables for for loop
-count = 0
-filenameArr = []
-success, image  = vid.read()
-
-#Iterate through each frame, crop and save
-startTimeOld = time.time()
-while success:
-    croppedImage = crop(image)
-    cv2.imwrite("./tempdir/frame%010d.jpg" % vid.get(cv2.CAP_PROP_POS_FRAMES), croppedImage)
-    filenameArr.append("frame%010d.jpg" % vid.get(cv2.CAP_PROP_POS_FRAMES))
-    success,image = vid.read()
-    count += 1
-stopTimeOld = time.time()
-'''
-
-file = 'botw2'
->>>>>>> 89b8a3cc5efefedac63fcf2723c0fad133b7eb8a
 filename = file + '.mp4'
 
 startTimeNew = time.time()
