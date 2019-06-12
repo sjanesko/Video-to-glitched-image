@@ -125,10 +125,45 @@ def frameCreator(vid, start, end):
 if os.path.exists('Images') == False:
     os.mkdir('Images')
 
-# Create directory to store pixel slices
-if os.path.exists('tempdir') == False:
-    os.mkdir('tempdir')
+while True:
+    # Create directory to store pixel slices
+    if os.path.exists('tempdir') == False:
+        os.mkdir('tempdir')
 
+    filename = input("Enter name of file (including extension): ")
+    fileWithoutExt = os.path.splitext(filename)[0]
+
+    if (filename == "q" or filename == ""):
+        exit()
+        
+    elif (os.path.isfile("./videos/%s" % filename)):
+        try: 
+            startTimeNew = time.time()
+            print("Reading file...")
+            filenameArr = createFrames(filename)
+            stopTimeNew = time.time()
+
+            # Retrieve final image and save it
+            finalImage = retrieveConcatenatedImage(filenameArr, 2)
+
+            #finalImage.save("workrender - %s.jpg" % file)
+            finalImage.save("./Images/homerender - %s.jpg" % fileWithoutExt)
+            # Remove the tempdir that contains the files
+            shutil.rmtree('tempdir')
+            img = cv2.imread("./Images/homerender - %s.jpg" % fileWithoutExt)
+            cv2.imshow('image', img)
+            cv2.waitKey(0)
+            cv2.destroyAllWindows()
+
+            print(stopTimeNew - startTimeNew)
+
+        except:
+            print("Error creating file. Try again")
+
+    else:
+        print("File does not exist.")
+
+'''
 #Open video file
 file = 'wavesrock'
 filename = file + '.mp4'
@@ -141,8 +176,4 @@ stopTimeNew = time.time()
 finalImage = retrieveConcatenatedImage(filenameArr, 2)
 #finalImage.save("workrender - %s.jpg" % file)
 finalImage.save("./Images/homerender - %s.jpg" % file)
-
-# Remove the tempdir that contains the files
-shutil.rmtree('tempdir')
-
-print(stopTimeNew - startTimeNew)
+'''
