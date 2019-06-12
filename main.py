@@ -122,11 +122,15 @@ def frameCreator(vid, start, end):
 
 
 # Create directory to store pixel slices
+if os.path.exists('Images') == False:
+    os.mkdir('Images')
+
+# Create directory to store pixel slices
 if os.path.exists('tempdir') == False:
     os.mkdir('tempdir')
 
 #Open video file
-file = 'waterrelax'
+file = 'wavesrock'
 filename = file + '.mp4'
 
 startTimeNew = time.time()
@@ -134,9 +138,9 @@ filenameArr = createFrames(filename)
 stopTimeNew = time.time()
 
 # Retrieve final image and save it
-finalImage = retrieveConcatenatedImage(filenameArr, 1)
+finalImage = retrieveConcatenatedImage(filenameArr, 2)
 #finalImage.save("workrender - %s.jpg" % file)
-finalImage.save("homerender - %s.jpg" % file)
+finalImage.save("./Images/homerender - %s.jpg" % file)
 
 # Remove the tempdir that contains the files
 shutil.rmtree('tempdir')
