@@ -1,2 +1,0 @@
-Rather than saving each sliver of a frame, save the sliver array points into an array during run time. Cuts down 
-on the runtime without saving/opening of photos
